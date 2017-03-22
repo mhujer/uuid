@@ -629,7 +629,7 @@ class Uuid implements UuidInterface
             return true;
         }
 
-        if (!preg_match('/' . self::VALID_PATTERN . '/', $uuid)) {
+        if (!preg_match('/^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$/', $uuid)) {
             return false;
         }
 
