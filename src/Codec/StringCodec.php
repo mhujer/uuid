@@ -129,13 +129,15 @@ class StringCodec implements CodecInterface
         // We have stripped out the dashes and are breaking up the string using
         // substr(). In this way, we can accept a full hex value that doesn't
         // contain dashes.
-        $components = array(
-            substr($nameParsed, 0, 8),
-            substr($nameParsed, 8, 4),
-            substr($nameParsed, 12, 4),
-            substr($nameParsed, 16, 4),
-            substr($nameParsed, 20)
-        );
+	    $components = array(
+		    $nameParsed[0] . $nameParsed[1] . $nameParsed[2] . $nameParsed[3] . $nameParsed[4] . $nameParsed[5] . $nameParsed[6] . $nameParsed[7],
+		    $nameParsed[8] . $nameParsed[9] . $nameParsed[10] . $nameParsed[11],
+		    $nameParsed[12] . $nameParsed[13] . $nameParsed[14] . $nameParsed[15],
+$nameParsed[16] . $nameParsed[17] . $nameParsed[18] . $nameParsed[19],
+		    $nameParsed[20] . $nameParsed[21] . $nameParsed[22] . $nameParsed[23] .
+		    $nameParsed[24] . $nameParsed[25] . $nameParsed[26] . $nameParsed[27] .
+		    $nameParsed[28] . $nameParsed[29] . $nameParsed[30] . $nameParsed[31]
+	    );
 
         $nameParsed = implode('-', $components);
 
