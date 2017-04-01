@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Ramsey\Uuid;
 
 use Ramsey\Uuid\Converter\NumberConverterInterface;
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Exception\UnsupportedOperationException;
 
 class LazyUuid implements UuidInterface
@@ -21,6 +22,18 @@ class LazyUuid implements UuidInterface
 	 */
 	public function __construct($uuidString)
 	{
+        if (!Uuid::isValid($uuidString)) {
+            throw new InvalidUuidStringException('Invalid UUID string: ' . $uuidString);
+        }
+
+        $uuidString = str_replace(array(
+            'urn:',
+            'uuid:',
+            '{',
+            '}',
+            '-'
+        ), '', $uuidString);
+
 		$this->uuidString = $uuidString;
 	}
 
@@ -37,6 +50,7 @@ class LazyUuid implements UuidInterface
 	private function ensureInternalUuidExists()
     {
         if ($this->uuid === null) {
+            Uuid::setFactory(new UuidFactory());
             $this->uuid = Uuid::fromString($this->uuidString);
         }
     }
