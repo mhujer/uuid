@@ -18,7 +18,7 @@ use InvalidArgumentException;
 use Ramsey\Uuid\Builder\UuidBuilderInterface;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidDummy;
+use Ramsey\Uuid\LazyUuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -26,7 +26,7 @@ use Ramsey\Uuid\UuidInterface;
  *
  * @link http://tools.ietf.org/html/rfc4122
  */
-class DummyStringCodec implements CodecInterface
+class LazyStringCodec implements CodecInterface
 {
     /**
      * @var UuidBuilderInterface
@@ -77,7 +77,7 @@ class DummyStringCodec implements CodecInterface
      */
     public function decode($encodedUuid)
     {
-    	return new UuidDummy($encodedUuid);
+    	return new LazyUuid($encodedUuid);
 
         $components = $this->extractComponents($encodedUuid);
         $fields = $this->getFields($components);

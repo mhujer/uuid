@@ -7,7 +7,7 @@ namespace Ramsey\Uuid;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
 use Ramsey\Uuid\Exception\UnsupportedOperationException;
 
-class UuidDummy implements UuidInterface
+class LazyUuid implements UuidInterface
 {
 
 	/** @var string */
@@ -361,7 +361,7 @@ class UuidDummy implements UuidInterface
 	 * which is a value of any type other than a resource.
 	 * @since 5.4.0
 	 */
-	function jsonSerialize()
+	public function jsonSerialize()
 	{
 		// TODO: Implement jsonSerialize() method.
 	}
