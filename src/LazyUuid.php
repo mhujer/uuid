@@ -13,7 +13,10 @@ class LazyUuid implements UuidInterface
 	/** @var string */
 	private $uuidString;
 
-	/**
+	/** @var Uuid */
+    private $uuid;
+
+    /**
 	 * @param string $uuidString
 	 */
 	public function __construct($uuidString)
@@ -31,6 +34,13 @@ class LazyUuid implements UuidInterface
 		return $this->uuidString;
 	}
 
+	private function ensureInternalUuidExists()
+    {
+        if ($this->uuid === null) {
+            $this->uuid = Uuid::fromString($this->uuidString);
+        }
+    }
+
 	/**
 	 * String representation of object
 	 * @link http://php.net/manual/en/serializable.serialize.php
@@ -39,10 +49,15 @@ class LazyUuid implements UuidInterface
 	 */
 	public function serialize()
 	{
-		// TODO: Implement serialize() method.
+        return $this->toString();
 	}
 
-	/**
+    public function jsonSerialize()
+    {
+        return $this->toString();
+    }
+
+    /**
 	 * Constructs the object
 	 * @link http://php.net/manual/en/serializable.unserialize.php
 	 * @param string $serialized <p>
@@ -53,7 +68,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function unserialize($serialized)
 	{
-		// TODO: Implement unserialize() method.
+	    $this->ensureInternalUuidExists();
+	    $this->uuid->unserialize($serialized);
 	}
 
 	/**
@@ -71,7 +87,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function compareTo(UuidInterface $other)
 	{
-		// TODO: Implement compareTo() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->compareTo($other);
 	}
 
 	/**
@@ -86,7 +103,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function equals($other)
 	{
-		// TODO: Implement equals() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->equals($other);
 	}
 
 	/**
@@ -97,7 +115,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getBytes()
 	{
-		// TODO: Implement getBytes() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getBytes();
 	}
 
 	/**
@@ -107,7 +126,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getNumberConverter()
 	{
-		// TODO: Implement getNumberConverter() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getNumberConverter();
 	}
 
 	/**
@@ -117,7 +137,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getHex()
 	{
-		// TODO: Implement getHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getHex();
 	}
 
 	/**
@@ -139,7 +160,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getFieldsHex()
 	{
-		// TODO: Implement getFieldsHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getFieldsHex();
 	}
 
 	/**
@@ -150,7 +172,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getClockSeqHiAndReservedHex()
 	{
-		// TODO: Implement getClockSeqHiAndReservedHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getClockSeqHiAndReservedHex();
 	}
 
 	/**
@@ -160,7 +183,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getClockSeqLowHex()
 	{
-		// TODO: Implement getClockSeqLowHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getClockSeqLowHex();
 	}
 
 	/**
@@ -170,7 +194,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getClockSequenceHex()
 	{
-		// TODO: Implement getClockSequenceHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getClockSequenceHex();
 	}
 
 	/**
@@ -186,7 +211,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getDateTime()
 	{
-		// TODO: Implement getDateTime() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getDateTime();
 	}
 
 	/**
@@ -197,7 +223,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getInteger()
 	{
-		// TODO: Implement getInteger() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getInteger();
 	}
 
 	/**
@@ -207,7 +234,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getLeastSignificantBitsHex()
 	{
-		// TODO: Implement getLeastSignificantBitsHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getLeastSignificantBitsHex();
 	}
 
 	/**
@@ -217,7 +245,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getMostSignificantBitsHex()
 	{
-		// TODO: Implement getMostSignificantBitsHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getMostSignificantBitsHex();
 	}
 
 	/**
@@ -246,7 +275,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getNodeHex()
 	{
-		// TODO: Implement getNodeHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getNodeHex();
 	}
 
 	/**
@@ -257,7 +287,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getTimeHiAndVersionHex()
 	{
-		// TODO: Implement getTimeHiAndVersionHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getTimeHiAndVersionHex();
 	}
 
 	/**
@@ -267,7 +298,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getTimeLowHex()
 	{
-		// TODO: Implement getTimeLowHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getTimeLowHex();
 	}
 
 	/**
@@ -277,7 +309,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getTimeMidHex()
 	{
-		// TODO: Implement getTimeMidHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getTimeMidHex();
 	}
 
 	/**
@@ -298,7 +331,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getTimestampHex()
 	{
-		// TODO: Implement getTimestampHex() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getTimestampHex();
 	}
 
 	/**
@@ -309,7 +343,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getUrn()
 	{
-		// TODO: Implement getUrn() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getUrn();
 	}
 
 	/**
@@ -328,7 +363,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getVariant()
 	{
-		// TODO: Implement getVariant() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getVariant();
 	}
 
 	/**
@@ -351,18 +387,8 @@ class LazyUuid implements UuidInterface
 	 */
 	public function getVersion()
 	{
-		// TODO: Implement getVersion() method.
+        $this->ensureInternalUuidExists();
+        return $this->uuid->getVersion();
 	}
 
-	/**
-	 * Specify data which should be serialized to JSON
-	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-	 * @return mixed data which can be serialized by <b>json_encode</b>,
-	 * which is a value of any type other than a resource.
-	 * @since 5.4.0
-	 */
-	public function jsonSerialize()
-	{
-		// TODO: Implement jsonSerialize() method.
-	}
 }

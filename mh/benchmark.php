@@ -10,9 +10,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $data = require __DIR__ . '/dataset.php';
 
-$f = Uuid::getFactory();
-if ($f instanceof UuidFactory) {
-	$f->setCodec(new LazyStringCodec());
+$factory = Uuid::getFactory();
+if ($factory instanceof UuidFactory) {
+	$factory->setCodec(new LazyStringCodec($factory->getUuidBuilder()));
 }
 
 foreach ($data as $uuidString) {
